@@ -1,25 +1,25 @@
-"use strict"
+'use strict'
 
-const form = new UserForm();
+const userForm = new UserForm();
 
-form.loginFormCallback = function(loginData) {
-    let loginCallback = (alertLogin) => {
-        if(!alertLogin.errorMessage) {
-            this.setLoginErrorMessage('error_login_test');
+userForm.loginFormCallback = loginData => {
+    let loginCallback = alertLogin => {
+        if(alertLogin.success) {
+            location.reload();  
         } else {
-            location.reload();
+            userForm.setLoginErrorMessage('Ошибка!');
         }
     };
     ApiConnector.login(loginData, loginCallback);
 };
 
-form.registerFormCallback = function(registerData) {
-    let registerCallback = (alertRegister) => {
-        if(!alertRegister.errorMessage) {
-            this.setRegisterErrorMessage('error_register_test');
+userForm.registerFormCallback = registerData => {
+    let registerCallback = alertRegister => {
+        if(alertRegister.success) {
+            location.reload();  
         } else {
-            location.reload();
-        };
+            userForm.setRegisterErrorMessage('Ошибка!');
+        }
     };
-    ApiConnector.register(registerData,registerCallback);
+    ApiConnector.register(registerData, registerCallback);
 };
